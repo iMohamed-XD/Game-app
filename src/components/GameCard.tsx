@@ -1,11 +1,13 @@
-import type { Game } from '@/hooks/useGames';
-import { Badge, Card, HStack, Image, Text } from "@chakra-ui/react"
+import type { Game } from "@/hooks/useGames";
+import { Badge, Card, HStack, Image, Text } from "@chakra-ui/react";
+import PlatformIconList from "./PlatformIconList";
+import Metacritic from "./metacritic";
 
 interface Props {
-    game: Game;
+  game: Game;
 }
 
-const GameCard = ({game}: Props) => {
+const GameCard = ({ game }: Props) => {
   return (
     <Card.Root
       overflow="hidden"
@@ -33,6 +35,15 @@ const GameCard = ({game}: Props) => {
             {game.rating}
           </Badge>
         </HStack>
+        <HStack justify="space-between">
+          <HStack gap="2" color="gray.500">
+            {game.parent_platforms.map(({ platform }) => (
+              <PlatformIconList key={platform.id} platform={platform} />
+            ))}
+          </HStack>
+
+          <Metacritic metacritic={game.metacritic} />
+        </HStack>
 
         <Card.Description>
           <Text lineClamp="3" color="fg.muted">
@@ -46,7 +57,7 @@ const GameCard = ({game}: Props) => {
         </HStack>
       </Card.Body>
     </Card.Root>
-  )
-}
+  );
+};
 
-export default GameCard
+export default GameCard;
