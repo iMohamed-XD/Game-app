@@ -1,5 +1,4 @@
 import { Badge } from '@chakra-ui/react/badge';
-import React from 'react'
 
 interface Props {
     metacritic: number;
