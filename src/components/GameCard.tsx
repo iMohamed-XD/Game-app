@@ -2,6 +2,7 @@ import type { Game } from "@/hooks/useGames";
 import { Badge, Card, HStack, Image, Text } from "@chakra-ui/react";
 import PlatformIconList from "./PlatformIconList";
 import Metacritic from "./metacritic";
+import { getCroppedURL } from "../services/imageURL";
 
 interface Props {
   game: Game;
@@ -21,7 +22,7 @@ const GameCard = ({ game }: Props) => {
       }}
     >
       <Image
-        src={game.background_image}
+        src={getCroppedURL(game.background_image)}
         alt={game.name}
         aspectRatio={16 / 9}
         objectFit="cover"
