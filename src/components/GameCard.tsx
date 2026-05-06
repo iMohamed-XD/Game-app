@@ -37,12 +37,6 @@ const GameCard = ({ game }: Props) => {
           <Metacritic metacritic={game.metacritic} />
         </HStack>
 
-        <Card.Description>
-          <Text lineClamp="3" color="fg.muted">
-            {game.description || "No description available."}
-          </Text>
-        </Card.Description>
-
         <HStack gap="2" pt="1" wrap="wrap">
           <Badge variant="outline">{game.reviews_count} reviews</Badge>
           <Badge variant="outline">Top {game.rating_top}</Badge>

@@ -23,10 +23,9 @@ const GameGrid = ({
   const heading = `${gameQuery.platform?.name || ""} ${
     gameQuery.genre?.name || ""
   } Games`.trim();
-
+  if (error) return <Text>{error}</Text>
   return (
     <>
-      {error && <Text>{error}</Text>}
       <Flex
         align={{ base: "flex-start", md: "center" }}
         direction={{ base: "column", md: "row" }}
