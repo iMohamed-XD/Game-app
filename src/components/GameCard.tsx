@@ -1,5 +1,5 @@
 import type { Game } from "@/hooks/useGames";
-import { Badge, Card, HStack, Image, Text } from "@chakra-ui/react";
+import { Badge, Card, HStack, Image } from "@chakra-ui/react";
 import GameCardContainer from "./GameCardContainer";
 import PlatformIconList from "./PlatformIconList";
 import Metacritic from "./metacritic";
