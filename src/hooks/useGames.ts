@@ -14,7 +14,7 @@ export interface Game {
   slug: string;
   games_count: number;
   image: string;
-  background_image: string;
+  background_image: string | null;
   description: string;
   reviews_count: number;
   rating: string;
@@ -31,9 +31,10 @@ const useGames = (gameQuery: GameQuery) => {
       params: {
         genres: gameQuery.genre?.id,
         parent_platforms: gameQuery.platform?.id,
+        ordering: gameQuery.sortOrder,
       },
     }),
-    [gameQuery]
+    [gameQuery.genre?.id, gameQuery.platform?.id, gameQuery.sortOrder]
   );
 
   return useData<Game>("/games", requestConfig);
