@@ -2,8 +2,13 @@ import useGenres from "@/hooks/useGenres";
 import { Box, Heading, Text, VStack } from "@chakra-ui/react";
 import GenreItem from "./GenreItem";
 import GenreItemSkeleton from "./GenreItemSkeleton";
+import type { Genre } from "@/hooks/useGenres";
 
-const GenreList = () => {
+interface Props {
+  selectedGenre: Genre | null;
+  onSelectGenre: (genre: Genre) => void;
+}
+const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
   const { data, error, loading } = useGenres();
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
@@ -24,12 +29,15 @@ const GenreList = () => {
         padding="0"
       >
         {loading &&
-          skeletons.map((skeleton) => (
-            <GenreItemSkeleton key={skeleton} />
-          ))}
+          skeletons.map((skeleton) => <GenreItemSkeleton key={skeleton} />)}
 
         {data.map((genre) => (
-          <GenreItem key={genre.id} genre={genre} />
+          <GenreItem
+            key={genre.id}
+            genre={genre}
+            selected={genre.id === selectedGenre?.id}
+            onClick={() => onSelectGenre(genre)}
+          />
         ))}
       </VStack>
     </Box>

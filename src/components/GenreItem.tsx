@@ -4,15 +4,21 @@ import { getCroppedURL } from "../services/imageURL";
 
 interface Props {
   genre: Genre;
+  selected: boolean;
+  onClick: () => void;
 }
 
-const GenreItem = ({ genre }: Props) => {
-  const imageUrl = genre.image || genre.background_image || genre.image_background;
+const GenreItem = ({ genre, selected, onClick }: Props) => {
+  const imageUrl =
+    genre.image || genre.background_image || genre.image_background;
 
   return (
     <Button
+      onClick={onClick}
+      fontWeight={selected ? "bold" : "normal"}
+      colorPalette={selected ? "blue" : "gray"}
+      variant={selected ? "subtle" : "ghost"}
       as="li"
-      variant="ghost"
       justifyContent="flex-start"
       height="auto"
       paddingX="2"
