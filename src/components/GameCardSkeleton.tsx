@@ -1,9 +1,10 @@
 
 import { Card, HStack, Skeleton, SkeletonText } from "@chakra-ui/react";
+import GameCardContainer from "./GameCardContainer";
 
 const GameCardSkeleton = () => {
   return (
-    <Card.Root overflow="hidden" borderRadius="10" borderWidth="1px" margin={5}>
+    <GameCardContainer>
       <Skeleton aspectRatio={16 / 9} />
       <Card.Body gap="3">
         <HStack justify="space-between" align="start">
@@ -27,8 +28,8 @@ const GameCardSkeleton = () => {
           <Skeleton height="5" width="14" borderRadius="md" />
         </HStack>
       </Card.Body>
-    </Card.Root>
+    </GameCardContainer>
   );
 };
 
-export default GameCardSkeleton
+export default GameCardSkeleton;

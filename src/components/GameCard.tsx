@@ -1,5 +1,6 @@
 import type { Game } from "@/hooks/useGames";
 import { Badge, Card, HStack, Image, Text } from "@chakra-ui/react";
+import GameCardContainer from "./GameCardContainer";
 import PlatformIconList from "./PlatformIconList";
 import Metacritic from "./metacritic";
 import { getCroppedURL } from "../services/imageURL";
@@ -10,17 +11,7 @@ interface Props {
 
 const GameCard = ({ game }: Props) => {
   return (
-    <Card.Root
-      overflow="hidden"
-      borderRadius="10"
-      borderWidth="1px"
-      margin={5}
-      transition="transform 0.2s ease, box-shadow 0.2s ease"
-      _hover={{
-        transform: "translateY(-4px)",
-        boxShadow: "lg",
-      }}
-    >
+    <GameCardContainer interactive>
       <Image
         src={getCroppedURL(game.background_image)}
         alt={game.name}
@@ -57,7 +48,7 @@ const GameCard = ({ game }: Props) => {
           <Badge variant="outline">Top {game.rating_top}</Badge>
         </HStack>
       </Card.Body>
-    </Card.Root>
+    </GameCardContainer>
   );
 };
 
