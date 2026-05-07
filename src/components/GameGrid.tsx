@@ -1,4 +1,4 @@
-import { Box, Flex, Heading, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import GameCard from "./GameCard";
 import { SimpleGrid } from "@chakra-ui/react/simple-grid";
 import GameCardSkeleton from "./GameCardSkeleton";
@@ -18,12 +18,19 @@ const GameGrid = ({
   onSelectPlatform,
   onSelectSortOrder,
 }: Props) => {
-  const { data, error, isLoading } = useGames(gameQuery);
+  const {
+    data,
+    error,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+    isFetchingNextPage,
+  } = useGames(gameQuery);
   const skeletons = [1, 2, 3, 4, 5, 6];
   const heading = `${gameQuery.platform?.name || ""} ${
     gameQuery.genre?.name || ""
   } Games`.trim();
-  if (error) return <Text>{error.message}</Text>
+  if (error) return <Text>{error.message}</Text>;
   return (
     <>
       <Flex
@@ -69,13 +76,16 @@ const GameGrid = ({
 
       <SimpleGrid columns={{ base: 1, lg: 3 }} padding={5}>
         {isLoading &&
-          skeletons.map((skeleton) => (
-            <GameCardSkeleton key={skeleton} />
-          ))}
-        {data?.map((game) => (
-          <GameCard key={game.id} game={game} />
-        ))}
+          skeletons.map((skeleton) => <GameCardSkeleton key={skeleton} />)}
+        {data?.pages.map((page) =>
+          page.results.map((game) => <GameCard key={game.id} game={game} />),
+        )}
       </SimpleGrid>
+      {hasNextPage && (
+        <Button onClick={() => fetchNextPage()} loading={isFetchingNextPage}>
+          Load More
+        </Button>
+      )}
     </>
   );
 };

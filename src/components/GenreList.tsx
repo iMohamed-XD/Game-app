@@ -31,7 +31,7 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
         {isLoading &&
           skeletons.map((skeleton) => <GenreItemSkeleton key={skeleton} />)}
 
-        {data?.map((genre) => (
+        {data?.pages.flatMap((page) => page.results).map((genre) => (
           <GenreItem
             key={genre.id}
             genre={genre}
