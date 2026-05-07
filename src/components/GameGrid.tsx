@@ -18,12 +18,12 @@ const GameGrid = ({
   onSelectPlatform,
   onSelectSortOrder,
 }: Props) => {
-  const { data, error, loading } = useGames(gameQuery);
+  const { data, error, isLoading } = useGames(gameQuery);
   const skeletons = [1, 2, 3, 4, 5, 6];
   const heading = `${gameQuery.platform?.name || ""} ${
     gameQuery.genre?.name || ""
   } Games`.trim();
-  if (error) return <Text>{error}</Text>
+  if (error) return <Text>{error.message}</Text>
   return (
     <>
       <Flex
@@ -68,11 +68,11 @@ const GameGrid = ({
       </Flex>
 
       <SimpleGrid columns={{ base: 1, lg: 3 }} padding={5}>
-        {loading &&
+        {isLoading &&
           skeletons.map((skeleton) => (
             <GameCardSkeleton key={skeleton} />
           ))}
-        {data.map((game) => (
+        {data?.map((game) => (
           <GameCard key={game.id} game={game} />
         ))}
       </SimpleGrid>

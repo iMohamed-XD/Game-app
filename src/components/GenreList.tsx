@@ -9,7 +9,7 @@ interface Props {
   onSelectGenre: (genre: Genre) => void;
 }
 const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
-  const { data, error, loading } = useGenres();
+  const { data, error, isLoading } = useGenres();
   const skeletons = [1, 2, 3, 4, 5, 6, 7, 8];
 
   return (
@@ -18,7 +18,7 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
         Genres
       </Heading>
 
-      {error && <Text color="red.400">{error}</Text>}
+      {error && <Text color="red.400">{error.message}</Text>}
 
       <VStack
         as="ul"
@@ -28,10 +28,10 @@ const GenreList = ({ selectedGenre, onSelectGenre }: Props) => {
         margin="0"
         padding="0"
       >
-        {loading &&
+        {isLoading &&
           skeletons.map((skeleton) => <GenreItemSkeleton key={skeleton} />)}
 
-        {data.map((genre) => (
+        {data?.map((genre) => (
           <GenreItem
             key={genre.id}
             genre={genre}
